@@ -4,3 +4,31 @@ body {
   word-break: keep-all;
   font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
+
+/* HEADER */
+header {
+}
+header .inner {
+  max-width: 1020px;
+  margin: 0 auto;
+}
+header ul.menu{
+  height: 44px;
+  display:flex;
+  justify-content: space-between;
+}
+header ul.menu li {
+  display: flex;
+}
+header ul.menu li a {
+  padding: 0 10px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  color: black;
+  opacity: .8;
+  text-decoration: none;
+}
+header ul.menu li a:hover{
+  opacity: 1;
+}
