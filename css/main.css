@@ -4,9 +4,13 @@ body {
   word-break: keep-all;
   font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
+a{
+  text-decoration: none;
+}
 
 /* HEADER */
 header {
+  /* background-color: #3f3f3f; */
 }
 header .inner {
   max-width: 1020px;
@@ -17,10 +21,11 @@ header ul.menu{
   display:flex;
   justify-content: space-between;
 }
-header ul.menu li {
+header ul.menu > li {
   display: flex;
+  position: relative;
 }
-header ul.menu li a {
+header ul.menu > li a {
   padding: 0 10px;
   font-size: 11px;
   display: flex;
@@ -29,6 +34,62 @@ header ul.menu li a {
   opacity: .8;
   text-decoration: none;
 }
-header ul.menu li a:hover{
+header ul.menu > li.apple-logo > a,
+header ul.menu > li.search-starter > a,
+header ul.menu > li.basket-starter > a {
+  width: 14px;
+  text-indent: -9999px;
+  background-repeat: no-repeat;
+  background-position: center 13px;
+}
+header ul.menu > li.apple-logo > a{
+  background-image: url("../images/header_apple.svg");
+}
+header ul.menu > li.search-starter > a{
+  background-image: url("../images/header_search.svg");
+}
+header ul.menu > li.basket-starter > a{
+  background-image: url("../images/header_bag.svg");
+}
+header ul.menu > li > a:hover{
   opacity: 1;
+}
+
+/* HEADER / MENU / BASKET */
+header .basket{
+  width: 980px;
+  padding: 40px 22px 84px ;
+  box-sizing: border-box;
+  background-color: #fff;
+  position: absolute;
+  top:calc(100% + 4px);
+  right: -6px;
+}
+header .basket .message{
+  margin-bottom: 24px;
+  color: rgb(51, 51, 54);
+  font-size: 24px;
+  font-weight: 600;
+}
+header .basket .message-login{
+  color: rgb(110, 110, 115);
+  font-size: 12px;
+}
+header .basket ul{
+
+}
+header .basket ul li h3 {
+  margin-top: 36px;
+  padding-bottom: 6px;
+  color: rgb(110, 110, 115);
+  font-size: 12px;
+}
+header .basket ul li a {
+  margin: 6px 0;
+  height: 29px;
+  color: rgb(51, 51, 54);
+  font-weight: 600;
+}
+header .basket ul li a img{
+  padding-right: 24px;
 }
