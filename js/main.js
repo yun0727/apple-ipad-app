@@ -1,3 +1,4 @@
+// basket
 const basketStarterEl = document.querySelector('header .basket-starter')
 const basketEl = basketStarterEl.querySelector('.basket')
 
@@ -23,4 +24,22 @@ function showBasket(){
 }
 function hideBasket(){
   basketEl.classList.remove('show')
+}
+
+// search
+const headerEl = document.querySelector('header')
+const searchWrapEl = headerEl.querySelector('.search-wrap')
+const searchStartEL = headerEl.querySelector('.search-starter')
+const searchShadowEl = searchWrapEl.querySelector('.shadow')
+
+searchStartEL.addEventListener('click', showSearch)
+searchShadowEl.addEventListener('click', hideSearch)
+
+function showSearch(){
+  headerEl.classList.add('searching')
+  document.documentElement.classList.add('fixed')
+}
+function hideSearch(){
+  headerEl.classList.remove('searching')
+  document.documentElement.classList.remove('fixed')
 }

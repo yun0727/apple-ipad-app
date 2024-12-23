@@ -1,4 +1,10 @@
+html.fixed{
+  position: fixed;
+  overflow-y: scroll;
+  width: 100%;
+}
 body {
+  height: 10000px;
   font-size: 16px;
   line-height: 1;
   word-break: keep-all;
@@ -106,11 +112,13 @@ header .search-wrap{
   top: 14px;
   left: 0;
   width: 100%;
+  display: none;
 }
 header .search{
   margin: 0 auto;
   padding: 32px 0px 80px;
   position: relative;
+  background-color: #fff;
 }
 header .search .shadow{
   position: fixed;
@@ -119,6 +127,7 @@ header .search .shadow{
   width: 100%;
   height: 100%;
   z-index: -1;
+  /* background-color: rgba(0, 0, 0, .3); */
 }
 header .search .textfield{
   display: flex;
@@ -173,4 +182,7 @@ header .search .autocompletes ul li .search-next-icon{
   background-repeat: no-repeat;
   background-position: center;
   opacity: .4;
+}
+header.searching .search-wrap{
+  display: block;
 }
