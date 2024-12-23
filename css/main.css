@@ -57,7 +57,6 @@ header ul.menu > li > a:hover{
 
 /* HEADER / MENU / BASKET */
 header .basket{
-  display: none;
   width: 980px;
   padding: 40px 22px 84px ;
   box-sizing: border-box;
@@ -65,10 +64,13 @@ header .basket{
   position: absolute;
   top:calc(100% + 4px);
   right: -6px;
+  visibility: hidden;
+  transition: .4s;
+  opacity: 0;
 }
 header .basket.show{
-  display: block;
-
+  visibility: visible;
+  opacity: 1;
 }
 header .basket .message{
   margin-bottom: 24px;
