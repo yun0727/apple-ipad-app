@@ -16,6 +16,29 @@ a{
   color: #1d1d1d;
 }
 
+/* BUTTON */
+.btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 100px;
+  outline: none;
+  font-size: 11px;
+  line-height: 1;
+  color: #fff;
+  background-color: #0071e3;
+  cursor: pointer;
+}
+.btn:hover{
+  opacity: .7;
+}
+.btn:focus{
+  box-shadow: 0 0 0 4px #81b9f1;
+}
+
 /* HEADER */
 header {
   /* background-color: #3f3f3f; */
@@ -209,4 +232,46 @@ header.searching .search .autocompletes h3,
 header.searching .search .autocompletes li{
   transition-delay: .2s;
   transform: translate(0,0);
+}
+
+/* NAVIGATION */
+nav{
+  background-color: rgba(255, 255, 255, .7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #d2d2d2;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+nav .inner{
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+nav h1{
+  flex-grow: 1;
+  font-size: 21px;
+  font-weight: 600;
+}
+nav .menu{
+  display: flex;
+  gap: 12px;
+  margin-right: 10px;
+}
+nav .menu li a{
+  display: block;
+  padding: 6px;
+  font-size: 12px;
+}
+nav .menu li:hover a{
+  color: #0071e3;
+}
+nav .menu li.active a {
+  opacity: .5;
+  cursor: default;
+}
+nav .menu li.active:hover a{
+  color: #1d1d1d;
 }
