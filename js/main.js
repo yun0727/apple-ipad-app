@@ -1,3 +1,5 @@
+import ipads from '../data/ipads.js'
+
 // basket
 const basketStarterEl = document.querySelector('header .basket-starter')
 const basketEl = basketStarterEl.querySelector('.basket')
@@ -35,9 +37,6 @@ const searchInputEls = searchWrapEl.querySelector('.textfield')
 const searchInputEl = searchWrapEl.querySelector('input')
 const searchH3El = searchWrapEl.querySelector('h3')
 const searchDelayEls = [searchInputEls,searchH3El,...searchWrapEl.querySelectorAll('li')]
-
-
-console.log(searchDelayEls)
 
 searchStartEL.addEventListener('click', function(event){
   event.stopPropagation()
@@ -100,4 +99,32 @@ pauseBtn.addEventListener('click', function(){
   video.pause()
   playBtn.classList.remove('hide')
   pauseBtn.classList.add('hide')
+})
+
+
+const itemsEl = document.querySelector('section.compare .items')
+ipads.forEach(ipad => {
+  const itemEl = document.createElement('div')
+  itemEl.classList.add('item')
+
+  let colorList = ''
+  ipad.colors.forEach(color => {
+    colorList += `<li style="background-color: ${color};"></li>`
+  })
+
+  itemEl.innerHTML = /* html */ `
+    <div class="thumbnail">
+      <img src="${ipad.thumbnail}" alt="${ipad.name}" />
+    </div>
+    <ul class="colors">
+      ${colorList}
+    </ul>
+    <h3 class="name">${ipad.name}</h3>
+    <p class="tagline">${ipad.tagline}</p>
+    <p class="price">₩${ipad.price.toLocaleString('en-US')}부터</p>
+    <button class="btn">구입하기</button>
+    <a href="${ipad.url}" class="link">더 알아보기</a>
+  `
+
+  itemsEl.append(itemEl)
 })
