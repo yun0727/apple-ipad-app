@@ -153,3 +153,6 @@ navigations.forEach(nav => {
 
   navigationsEl.append(mapEl)
 })
+
+const thisYearEl = document.querySelector('.this-year')
+thisYearEl.textContent = new Date().getFullYear()
