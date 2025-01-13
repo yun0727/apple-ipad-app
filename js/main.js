@@ -95,6 +95,26 @@ menuStarterEl.addEventListener('click', () => {
   }
 })
 
+// 헤더 검색
+const searchTextFieldEl = document.querySelector('header .textfield')
+const searchCancelEl = document.querySelector('header .search-canceler')
+searchTextFieldEl.addEventListener('click', function(){
+  headerEl.classList.add('searching--mobile')
+  searchInputEl.focus()
+})
+searchCancelEl.addEventListener('click', function(){
+  headerEl.classList.remove('searching--mobile')
+})
+
+// 
+window.addEventListener('resize', function(){
+  if (this.window.innerWidth <=740){
+    headerEl.classList.remove('searching')
+  } else{
+    headerEl.classList.remove('searching')
+  }
+})
+
 //요소의 가시성 관찰
 const io = new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
