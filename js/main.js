@@ -33,46 +33,46 @@ function hideBasket(){
 const headerEl = document.querySelector('header')
 const headerMenuEls = [...headerEl.querySelectorAll('ul.menu > li')]
 const searchWrapEl = headerEl.querySelector('.search-wrap')
-const searchStartEL = headerEl.querySelector('.search-starter')
+const searchStarterEl = headerEl.querySelector('.search-starter')
 const searchCloserEl = searchWrapEl.querySelector('.search-closer')
 const searchShadowEl = searchWrapEl.querySelector('.shadow')
-const searchInputEls = searchWrapEl.querySelector('.textfield')
 const searchInputEl = searchWrapEl.querySelector('input')
-const searchH3El = searchWrapEl.querySelector('h3')
-const searchDelayEls = [searchInputEls,searchH3El,...searchWrapEl.querySelectorAll('li')]
+const searchDelayEls = [...searchWrapEl.querySelectorAll('li')]
+const duration = .4 // 초(seconds) 단위, 시간을 변수에 저장해서 사용하면 쉽게 관리 용이
 
-searchStartEL.addEventListener('click', function(event){
-  event.stopPropagation()
-  if(headerEl.classList.contains('searching')){
-    hideSearch()
-  } else{
-    showSearch()
-  }
+searchStarterEl.addEventListener('click', showSearch)
+searchCloserEl.addEventListener('click', event => {
+  event.stopPropagation() // 데스크탑 레이아웃에서 클릭 이벤트가 버블링되어, 모바일 레이아웃에서 searchTextFieldEl가 클릭된 상태로 변하는 것을 방지
+  hideSearch()
 })
-searchWrapEl.addEventListener('click',function(event){
-  event.stopPropagation()
-})
-window.addEventListener('click',hideSearch)
+searchShadowEl.addEventListener('click', hideSearch)
 
-function showSearch(){
+function showSearch() {
   headerEl.classList.add('searching')
   stopScroll()
-  searchDelayEls.forEach(function (el, index){
-    el.style.transitionDelay = index * .4 / searchDelayEls.length + "s"
+  headerMenuEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = `${index * duration / headerMenuEls.length}s` // 순서 * 지연 시간 / 애니메이션할 요소 개수
   })
-  setTimeout(function(){
+  // .reverse() 사용하지 않고 원래 순서대로 반복 처리.
+  searchDelayEls.forEach((el, index) => {
+    el.style.transitionDelay = `${index * duration / searchDelayEls.length}s`
+  })
+  // 검색 인풋 요소가 나타난 후 동작!
+  setTimeout(() => {
     searchInputEl.focus()
-  }, 600)
+  }, 600);
 }
-
-function hideSearch(){
+function hideSearch() {
   headerEl.classList.remove('searching')
   playScroll()
-  searchDelayEls.reverse().forEach(function (el, index){
-    el.style.transitionDelay = index * .4 / searchDelayEls.length + "s"
+  headerMenuEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = `${index * duration / headerMenuEls.length}s`
   })
-  searchDelayEls.reverse()
-  searchInputEl.value=''
+  searchDelayEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = `${index * duration / searchDelayEls.length}s`
+  })
+  searchDelayEls.reverse() // 나타날 때 원래의 순서대로 처리해야 하기 때문에 다시 뒤집어서 순서 돌려놓기!
+  searchInputEl.value = '' // 입력값 초기화
 }
 function playScroll() {
   // documentElement is <html>
@@ -82,15 +82,16 @@ function stopScroll() {
   document.documentElement.classList.add('fixed')
 }
 
-// 헤더 메뉴 토글
+// 헤더 메뉴 토글! [모바일]
 const menuStarterEl = document.querySelector('header .menu-starter')
 menuStarterEl.addEventListener('click', () => {
   if (headerEl.classList.contains('menuing')) {
     headerEl.classList.remove('menuing')
-    document.documentElement.classList.remove('fixed')
+    searchInputEl.value = ''
+    playScroll()
   } else {
     headerEl.classList.add('menuing')
-    document.documentElement.classList.add('fixed')
+    stopScroll()
   }
 })
 
