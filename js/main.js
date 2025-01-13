@@ -31,8 +31,10 @@ function hideBasket(){
 
 // search
 const headerEl = document.querySelector('header')
+const headerMenuEls = [...headerEl.querySelectorAll('ul.menu > li')]
 const searchWrapEl = headerEl.querySelector('.search-wrap')
 const searchStartEL = headerEl.querySelector('.search-starter')
+const searchCloserEl = searchWrapEl.querySelector('.search-closer')
 const searchShadowEl = searchWrapEl.querySelector('.shadow')
 const searchInputEls = searchWrapEl.querySelector('.textfield')
 const searchInputEl = searchWrapEl.querySelector('input')
@@ -54,7 +56,7 @@ window.addEventListener('click',hideSearch)
 
 function showSearch(){
   headerEl.classList.add('searching')
-  document.documentElement.classList.add('fixed')
+  stopScroll()
   searchDelayEls.forEach(function (el, index){
     el.style.transitionDelay = index * .4 / searchDelayEls.length + "s"
   })
@@ -62,15 +64,35 @@ function showSearch(){
     searchInputEl.focus()
   }, 600)
 }
+
 function hideSearch(){
   headerEl.classList.remove('searching')
-  document.documentElement.classList.remove('fixed')
+  playScroll()
   searchDelayEls.reverse().forEach(function (el, index){
     el.style.transitionDelay = index * .4 / searchDelayEls.length + "s"
   })
   searchDelayEls.reverse()
   searchInputEl.value=''
 }
+function playScroll() {
+  // documentElement is <html>
+  document.documentElement.classList.remove('fixed')
+}
+function stopScroll() {
+  document.documentElement.classList.add('fixed')
+}
+
+// 헤더 메뉴 토글
+const menuStarterEl = document.querySelector('header .menu-starter')
+menuStarterEl.addEventListener('click', () => {
+  if (headerEl.classList.contains('menuing')) {
+    headerEl.classList.remove('menuing')
+    document.documentElement.classList.remove('fixed')
+  } else {
+    headerEl.classList.add('menuing')
+    document.documentElement.classList.add('fixed')
+  }
+})
 
 //요소의 가시성 관찰
 const io = new IntersectionObserver(function(entries){

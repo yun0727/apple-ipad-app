@@ -1,14 +1,16 @@
 html{
-  --color-white:#fff;
+  --color-white: #FFF;
   --color-black: #000;
-  --color-font: #1d1d1d;
-  --color-font-darkgray: #6e6e6e;
-  --color-font-lightgray: #f5f5f5;
-  --color-link: #0071e3;
-  --color-border: #d2d2d2;
-  --color-header: #3a3a3a;
-  --color-section: #f5f5f5;
-  --color-shadow: rgba(0,0,0,.4);
+  --color-font: #1D1D1D;
+  --color-font-darkgray: #6E6E6E;
+  --color-font-middlegray: #b7b7b7;
+  --color-font-lightgray: #F5F5F5;
+  --color-link: #0071E3;
+  --color-link-focus: #81B9F1;
+  --color-border: #D2D2D2;
+  --color-header: #3A3A3A;
+  --color-section: #F5F5F5;
+  --color-shadow: rgba(0, 0, 0, .4);
 }
 
 html.fixed{
@@ -216,31 +218,41 @@ a.link::after{
 /* HEADER */
 header {
   --header-height: 44px;
-  background-color: var(--color-white);
+  background-color: var(--color-header);
   position: relative;
   z-index: 9;
-  height: var(--header-height);
+  transition: .4s;
 }
 header .inner {
   max-width: 1020px;
-}
-header ul.menu{
   height: var(--header-height);
-  display:flex;
+}
+header .mobile-layout {
+  display: none;
+}
+
+/* Header / Menu */
+header ul.menu {
+  display: flex;
   justify-content: space-between;
+  height: var(--header-height);
 }
 header ul.menu > li {
   display: flex;
   position: relative;
+  cursor: pointer;
+  transition: .4s;
 }
-header ul.menu > li a {
-  padding: 0 10px;
-  font-size: 11px;
+header ul.menu > li.menu-starter {
+  display: none;
+}
+header ul.menu > li > a {
   display: flex;
   align-items: center;
-  color: black;
+  padding: 0 10px;
+  font-size: 11px;
+  color: var(--color-font-lightgray);
   opacity: .8;
-  text-decoration: none;
 }
 header ul.menu > li.apple-logo > a,
 header ul.menu > li.search-starter > a,
@@ -250,164 +262,255 @@ header ul.menu > li.basket-starter > a {
   background-repeat: no-repeat;
   background-position: center 13px;
 }
-header ul.menu > li.apple-logo > a{
+header ul.menu > li.apple-logo > a {
   background-image: url("../images/header_apple.svg");
 }
-header ul.menu > li.search-starter > a{
+header ul.menu > li.search-starter > a {
   background-image: url("../images/header_search.svg");
 }
-header ul.menu > li.basket-starter > a{
+header ul.menu > li.basket-starter > a {
   background-image: url("../images/header_bag.svg");
 }
-header ul.menu > li > a:hover{
+header ul.menu > li:hover > a {
   opacity: 1;
 }
 
-/* HEADER / MENU / BASKET */
-header .basket{
-  width: 980px;
-  padding: 40px 22px 84px ;
+/* Header / Menu / Basket */
+header .basket {
+  width: 290px;
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
   box-sizing: border-box;
   background-color: var(--color-white);
   position: absolute;
-  top:calc(100% + 4px);
+  top: calc(100% + 4px);
   right: -6px;
-  visibility: hidden;
   transition: .4s;
+  visibility: hidden;
   opacity: 0;
 }
-header .basket.show{
+header .basket.show {
   visibility: visible;
   opacity: 1;
 }
-header .basket .message{
-  margin-bottom: 24px;
-  color: rgb(51, 51, 54);
-  font-size: 24px;
-  font-weight: 600;
+header .basket .arrow {
+  width: 20px;
+  height: 10px;
+  overflow: hidden;
+  position: absolute;
+  top: -10px;
+  right: 12px;
 }
-header .basket .message-login{
-  color: rgb(110, 110, 115);
-  font-size: 12px;
+header .basket .arrow::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-white);
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
 }
-header .basket ul li h3 {
-  margin-top: 36px;
-  padding-bottom: 6px;
-  color: rgb(110, 110, 115);
-  font-size: 12px;
+header .basket .message {
+  padding: 30px 0;
+  font-size: 13px;
+  color: var(--color-font-darkgray);
+  text-align: center;
+}
+header .basket ul {
+  margin-top: 10px;
+}
+header .basket ul li {
+  border-top: 1px solid var(--color-border);
 }
 header .basket ul li a {
-  margin: 6px 0;
-  height: 29px;
-  color: rgb(51, 51, 54);
-  font-weight: 600;
+  display: block;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--color-link);
 }
-header .basket ul li a img{
-  padding-right: 24px;
+header .basket ul li a:hover {
+  text-decoration: underline;
 }
 
-/* HEADER / SEARCH */
-header .search-wrap{
-  /* position: absolute; */
-  /* top: 14px;
-  left: 0; */
+/* Header / Search */
+header .search-wrap {
   width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: .4s;
-  background-color: black;
-}
-header .search{
-  /* margin: 0 auto; */
-  padding: 32px 0 0;
-  /* position: relative;s */
-  background-color: var(--color-white);
-  height: 100%;
-}
-header .search .shadow{
-  /* position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+  transition: .4s;
+  visibility: hidden;
+  opacity: 0;
+}
+header .search {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+}
+header .search .shadow {
   width: 100%;
   height: 100%;
-  /* z-index: -1; */
-  /* background-color: rgba(0, 0, 0, .3); */ 
+  background-color: var(--color-shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
-header .search .textfield{
-  display: flex;
+header .search .textfield {
   position: relative;
 }
 header .search input {
   width: 100%;
   height: var(--header-height);
-  padding: 0 0px;
+  padding: 0 40px;
   border: none;
   outline: none;
   box-sizing: border-box;
   background-color: transparent;
-  font-size: 24px;
-  color: rgb(51, 51, 54);
+  font-size: 17px;
+  color: var(--color-white);
 }
-header .search .search-icon{
+header .search .search-icon {
   width: 40px;
   height: var(--header-height);
   background-image: url("../images/header_search.svg");
   background-repeat: no-repeat;
   background-position: center;
   opacity: .4;
-}
-header .search .autocompletes{
-  width: 100%;
-  margin-top: 32px;
-  border-radius: 0 0 18px 18px;
-  box-sizing: border-box;
   position: absolute;
+  top: 0;
+  left: 0;
 }
-header .search .autocompletes h3{
-  font-size: 12px;
-  color: var(--color-font-darkgray);
-  margin-bottom: 12px;
-}
-header .search .autocompletes ul li a {
-  display: flex;
-  align-items: center;
-  margin: 4px -8px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-}
-header .search .autocompletes ul li:hover a{
-  background-color: var(--color-font-lightgray);
-  font-weight: 500;
-}
-header .search .autocompletes ul li .search-next-icon{
-  width: 9px;
-  height: 16px;
-  margin-right: 11px;
-  background-image: url("../images/header_next.svg");
+header .search .search-closer {
+  width: 40px;
+  height: var(--header-height);
+  background-image: url("../images/header_close.svg");
   background-repeat: no-repeat;
   background-position: center;
   opacity: .4;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
+header .search .search-closer:hover {
+  opacity: 1;
+}
+header .search .search-canceler {
+  display: none;
+}
+header .search .autocompletes {
+  width: 100%;
+  padding: 26px 40px 20px;
+  border-radius: 0 0 18px 18px;
+  box-sizing: border-box;
+  background-color: var(--color-white);
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+}
+header .search .autocompletes h3 {
+  font-size: 12px;
+  color: var(--color-font-darkgray);
+  margin-top: 12px;
+}
+header .search .autocompletes ul li a {
+  display: block;
+  margin: 0 -14px;
+  padding: 10px 0 10px 30px;
+  font-size: 14px;
+  cursor: pointer;
+}
+header .search .autocompletes ul li:hover a {
+  background-color: var(--color-section);
+  color: var(--color-link);
+}
+header .clone-menu {
+  display: none;
+}
+
+/* Search Animation */
+/* 스타일을 한 번에 지정 */
 header .search input,
 header .search .search-icon,
 header .search .autocompletes h3,
 header .search .autocompletes li {
   transition: .6s;
-  transform: translate(0, -100px);
+  transform: translate(100px, 0);
 }
-header.searching .search-wrap{
-  height: 100%;
-  visibility: visible;
-  opacity: 1;
+header.searching ul.menu > li {
+  transform: scale(.7);
+  opacity: 0;
+}
+header.searching .search-wrap {
   transition-delay: .2s;
+  opacity: 1;
+  visibility: visible;
 }
 header.searching .search input,
 header.searching .search .search-icon,
 header.searching .search .autocompletes h3,
-header.searching .search .autocompletes li{
+header.searching .search .autocompletes li {
   transition-delay: .2s;
-  transform: translate(0,0);
+  transform: translate(0, 0);
+}
+
+@media (max-width:1000px){
+  header .inner{
+    padding: 0 10px;
+  }
+}
+
+@media (max-width:900px){
+  header::before{
+    content: "";
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: var(--color-header);
+    transition: .4s;
+  }
+  header ul.menu > li {
+    display: none;
+  }
+  header ul.menu > li.menu-starter,
+  header ul.menu > li.apple-logo,
+  header ul.menu > li.basket-starter{
+    display: flex;
+  }
+  header ul.menu > li.menu-starter span{
+    display:  block;
+    width: 15px;
+    height: 1px;
+    background-color: var(--color-white);
+    margin-bottom: 6px;
+    transition: .4s;
+  }
+  header ul.menu > li.menu-starter span:last-child{
+    margin-bottom: 0;
+  }
+  header.menuing{
+    background-color: var(--color-black);
+  }
+  header.menuing::before{
+    height: 100vh;
+    background-color: var(--color-black);
+  }
+  header.menuing ul.menu > li.basket-starter{
+    opacity: 0;
+    visibility: hidden;
+  }
+  header.menuing ul.menu > li.menu-starter span:first-child{
+    transform: translate(0, 3.5px) rotate(45deg);
+  }
+  header.menuing ul.menu > li.menu-starter span:last-child{
+    transform: translate(0, -3.5px) rotate(-45deg);
+  }
 }
 
 /* NAVIGATION */
